@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MSCS</h1>
+    <h2>Attendance Management System</h2>
+    <h3>Semester: Sixth</h3>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" readonly>
+
+    <label for="course">Course:</label>
+    <select id="course" name="course" required>
+        <option value="Computer Science">Advance Software Engineering ()</option>
+        <option value="Biology">Introduction To OS ()</option>
+        <option value="Physics">Compiler Construction ()</option>
+        <option value="History">Data Communication and Networking II ()</option>
+    </select>
+
+    <label for="section">Section:</label>
+    <select id="section" name="section" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select>
+
+    <h3>Attendance Status</h3>
+
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="attendanceBody">
+            <!-- Attendance status will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <button onclick="validateAndGeneratePDF()">Review Report</button>
+    <button onclick="takeScreenshot()">Take a Snap</button>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        // Hardcoded student names
+        var students = ["Muhammad Ahmed Hashmi", "Muhammad Hamza Siddiqui", "Muhammad Ahub Hashmi", /* ... */];
+
+        // Function to generate attendance status table
+        function generateAttendanceTable() {
+            var tableBody = document.getElementById("attendanceBody");
+            tableBody.innerHTML = "";
+
+            for (var i = 0; i < students.length; i++) {
+                var row = tableBody.insertRow(i);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+
+                cell1.innerHTML = students[i];
+                cell2.innerHTML = '<select id="' + students[i] + '" name="' + students[i] + '"><option value="P">Present</option><option value="A">Absent</option></select>';
+            }
+        }
+
+        // Function to generate PDF
+        function generatePDF() {
+            var date = document.getElementById("date").value;
+            var course = document.getElementById("course").value;
+            var section = document.getElementById("section").value;
+
+            var attendanceStatus = {};
+
+            // Collect attendance status
+            for (var i = 0; i < students.length; i++) {
+                var status = document.getElementById(students[i]).value;
+                attendanceStatus[students[i]] = status;
+            }
+
+            // Placeholder for actual PDF generation
+            alert("Date: " + date + "\nCourse: " + course + "\nSection: " + section + "\nAttendance Status: " + JSON.stringify(attendanceStatus));
+        }
+
+        // Function to validate and generate PDF
+        function validateAndGeneratePDF() {
+            var date = document.getElementById("date").value;
+            var course = document.getElementById("course").value;
+            var section = document.getElementById("section").value;
+
+            // Validate that all required fields are filled
+            if (!date || !course || !section) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            // Collect attendance status
+            var attendanceStatus = {};
+            for (var i = 0; i < students.length; i++) {
+                var status = document.getElementById(students[i]).value;
+                attendanceStatus[students[i]] = status;
+            }
+
+            // Generate PDF or show an error message
+            if (Object.values(attendanceStatus).every(Boolean)) {
+                // Placeholder for actual PDF generation
+                alert("Date: " + date + "\nCourse: " + course + "\nSection: " + section + "\nAttendance Status: " + JSON.stringify(attendanceStatus));
+            } else {
+                alert("Please mark attendance for all students.");
+            }
+        }
+
+        // Function to take a screenshot
+        function takeScreenshot() {
+            html2canvas(document.body).then(function(canvas) {
+                var link = document.createElement("a");
+                document.body.appendChild(link);
+                link.download = "attendance_system_screenshot.png";
+                link.href = canvas.toDataURL();
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // Set the current date
+        document.getElementById("date").valueAsDate = new Date();
+
+        // Initialize the attendance table
+        generateAttendanceTable();
+    </script>
+
+</body>
+</html>
