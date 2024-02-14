@@ -1,5 +1,5 @@
-### Attendance Management System
-# Overview
+# Attendance Management System
+## Overview
 This web application serves as an Attendance Management System for tracking and managing student attendance in a classroom setting. It includes features for recording attendance, generating attendance reports, and capturing a screenshot of the application.
 
 ## Usage:
