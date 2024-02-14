@@ -9,7 +9,7 @@ Clone the repository to your local machine.
 # Bash
 
 # Copy code
-git clone https://github.com/your-username/attendance-management-system.git
+git clone https://github.com/your-username/attendance-management-system.git                                                                                                                                                                                          
 Open the index.html file in a web browser.
 
 ## Features
@@ -47,8 +47,7 @@ The takeScreenshot function utilizes the HTML2Canvas library to capture a screen
 ## Dependencies
 # HTML2Canvas:
 Used for capturing screenshots.
-Contributors
-MySelf
+
 
 # License
 This project is licensed under the MIT License
