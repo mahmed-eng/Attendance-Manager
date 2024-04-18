@@ -8,7 +8,7 @@ Clone the repository to your local machine.
 
 ## Bash
 ## Copy code:
-git clone https://github.com/your-username/attendance-management-system.git                                                                                                                                                                                          
+git clone https://github.com/mahmed-eng/Attendance-Manager.git                                                                                                                                                                                          
 Open the index.html file in a web browser.
 
 # Features:
